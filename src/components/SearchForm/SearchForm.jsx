@@ -12,8 +12,13 @@ export class SearchForm extends Component {
     e.preventDefault();
 
     this.props.onSubmit(this.state.value);
+
+    this.reset();
   };
 
+  reset = () => {
+    this.setState({ value: '' });
+  };
   handleChange = ({ target }) => {
     this.setState({
       value: target.value,
