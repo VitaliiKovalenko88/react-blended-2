@@ -24,10 +24,11 @@ export class EditTodoModal extends Component {
     e.preventDefault();
 
     const { value } = this.state;
-    const { id, handleTodoEdit, editTodo, onClose } = this.props;
+    const { id, handleTodoEdit, onClose, updateTodo } = this.props;
 
     handleTodoEdit(value);
-    editTodo(id, value);
+    updateTodo(id, value);
+
     this.setState({ value: '' });
 
     onClose();
@@ -35,6 +36,7 @@ export class EditTodoModal extends Component {
 
   render() {
     const { value } = this.state;
+    const { edittedText } = this.props;
 
     return (
       <Backdrop onClick={this.handleBackdropClose}>
@@ -45,6 +47,7 @@ export class EditTodoModal extends Component {
               name="edit"
               value={value}
               autoComplete="off"
+              placeholder={edittedText}
               onChange={this.handleChange}
             />
             <EditBtn type="submit">Edit</EditBtn>

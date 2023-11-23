@@ -26,7 +26,7 @@ export class Todos extends Component {
       text: value,
       id: nanoid(),
     };
-    this.setState(prevState => ({ todos: [todo, ...prevState.todos] }));
+    this.setState(prevState => ({ todos: [...prevState.todos, todo] }));
   };
 
   deleteTodo = id => {
@@ -35,26 +35,18 @@ export class Todos extends Component {
     }));
   };
 
-  handleEdit = (id, value) => {
-    const editTodo = {
-      text: value,
-      id: id,
-    };
-
+  updateTodo = (id, newText) => {
     this.setState(prevState => ({
       todos: prevState.todos.map(todo => {
         if (todo.id === id) {
-          return editTodo;
+          return { ...todo, text: newText };
         }
         return todo;
       }),
-
-      // [todo, ...prevState.todos]
     }));
   };
 
   render() {
-    const { todos } = this.state;
     return (
       <>
         <SearchForm onSubmit={this.handleSubmit} />
@@ -63,11 +55,11 @@ export class Todos extends Component {
             {this.state.todos.map(({ text, id }, index) => (
               <GridItem key={id}>
                 <Todo
-                  id={id}
                   text={text}
+                  id={id}
                   index={index + 1}
                   deleteTodo={() => this.deleteTodo(id)}
-                  editTodo={() => this.handleEdit(id, todos.text)}
+                  updateTodo={this.updateTodo}
                 />
               </GridItem>
             ))}
