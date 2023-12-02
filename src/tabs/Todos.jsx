@@ -26,12 +26,23 @@ export class Todos extends Component {
       text: value,
       id: nanoid(),
     };
-    this.setState(prevState => ({ todos: [todo, ...prevState.todos] }));
+    this.setState(prevState => ({ todos: [...prevState.todos, todo] }));
   };
 
   deleteTodo = id => {
     this.setState(prevState => ({
       todos: prevState.todos.filter(todo => todo.id !== id),
+    }));
+  };
+
+  updateTodo = (id, newText) => {
+    this.setState(prevState => ({
+      todos: prevState.todos.map(todo => {
+        if (todo.id === id) {
+          return { ...todo, text: newText };
+        }
+        return todo;
+      }),
     }));
   };
 
@@ -45,8 +56,10 @@ export class Todos extends Component {
               <GridItem key={id}>
                 <Todo
                   text={text}
+                  id={id}
                   index={index + 1}
                   deleteTodo={() => this.deleteTodo(id)}
+                  updateTodo={this.updateTodo}
                 />
               </GridItem>
             ))}
