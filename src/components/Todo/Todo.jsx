@@ -24,7 +24,7 @@ export class Todo extends Component {
 
   render() {
     const { isEditModalOpen, edittedText } = this.state;
-    const { text, index, deleteTodo, updateTodo, id } = this.props;
+    const { index, deleteTodo, updateTodo, id } = this.props;
     return (
       <TodoWrapper>
         <Text textAlign="center" marginBottom="20px">
